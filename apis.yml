@@ -1,18 +1,16 @@
 aid: qualcomm
-url: 
-  https://raw.githubusercontent.com/api-evangelist/qualcomm/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/qualcomm/refs/heads/main/apis.yml
 modified: '2026-03-21'
 apis:
   - aid: qualcomm:qualcomm-api
     name: Qualcomm Developer API
     tags:
-      - Semiconductors
       - 5G
-      - Mobile
       - AI
       - IoT
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Mobile
+      - Semiconductors
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://developer.qualcomm.com/api
     humanURL: https://developer.qualcomm.com/
     properties:
