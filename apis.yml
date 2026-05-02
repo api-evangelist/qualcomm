@@ -1,6 +1,6 @@
 aid: qualcomm
 url: https://raw.githubusercontent.com/api-evangelist/qualcomm/refs/heads/main/apis.yml
-modified: '2026-03-21'
+modified: '2026-04-28'
 apis:
   - aid: qualcomm:qualcomm-api
     name: Qualcomm Developer API
