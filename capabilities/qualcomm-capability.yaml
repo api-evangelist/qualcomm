@@ -1,0 +1,67 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Qualcomm Developer API
+  description: Qualcomm provides developer APIs and SDKs for mobile computing, 5G connectivity, AI inference, and IoT. The
+    platform supports developers building applications for Snapdragon-powered devices.
+  tags:
+  - Qualcomm
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: qualcomm
+    baseUri: https://developer.qualcomm.com/api
+    description: Qualcomm Developer API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{QUALCOMM_TOKEN}}'
+    resources:
+    - name: status
+      path: /status
+      operations:
+      - name: getstatus
+        method: GET
+        description: Get API status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: qualcomm-rest
+    description: REST adapter for Qualcomm Developer API.
+    resources:
+    - path: /status
+      name: getstatus
+      operations:
+      - method: GET
+        name: getstatus
+        description: Get API status
+        call: qualcomm.getstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: qualcomm-mcp
+    transport: http
+    description: MCP adapter for Qualcomm Developer API for AI agent use.
+    tools:
+    - name: getstatus
+      description: Get API status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: qualcomm.getstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    QUALCOMM_TOKEN: QUALCOMM_TOKEN
