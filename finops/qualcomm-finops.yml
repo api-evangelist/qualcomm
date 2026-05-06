@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,120 +9,57 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: qualcomm
 providerId: qualcomm
-publisherName: qualcomm
-serviceCategory: API
+publisherName: Qualcomm Technologies, Inc.
+serviceCategory: Semiconductors
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
+  - Mobile
+  - Semiconductors
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the qualcomm API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+notes: Qualcomm does not publish a per-API meter or invoice surface for its developer SDKs; the company's
+  revenue is principally chipset and licensing rather than API metering. FinOps mapping is left at the
+  partner-program contract level.
+description: FinOps for the Qualcomm developer surface is not metered per-API; consumption is governed
+  by Qualcomm Developer Network registration and partner-program contracts rather than by FOCUS-shaped
+  invoices.
+sources:
+  - https://www.qualcomm.com/developer
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Partner Program / Licensing
+  billingFrequency: Per-Invoice
   billingCurrency: USD
   chargeCategories:
-    - Usage
     - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
-  ServiceName: qualcomm
-  ServiceCategory: Developer Tools / API
-  ProviderName: qualcomm
-  PublisherName: qualcomm
-  InvoiceIssuerName: qualcomm
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: Qualcomm Developer Network
+  ServiceCategory: Semiconductors
+  ProviderName: Qualcomm
+  PublisherName: Qualcomm Technologies, Inc.
+  InvoiceIssuerName: Qualcomm Technologies, Inc.
   BillingCurrency: USD
-  ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: program_engagement
+    description: Partner-program or licensing engagement under the Qualcomm Developer Network.
+    unit: varies
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Qualcomm Developer API
-    baseURL: https://developer.qualcomm.com/api
-    tags:
-      - 5G
-      - AI
-      - IoT
-      - Mobile
-      - Semiconductors
-    serviceName: Qualcomm Developer API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
-maintainers: []
+      - program
+principles:
+  - name: Visibility
+    description: Surface Qualcomm Developer Network entitlements through internal procurement records;
+      the developer portal does not expose a usage-meter API.
+  - name: Allocation
+    description: Allocate program fees and licensing costs to the device-engineering or product-platform
+      cost centers that consume the SDKs and AI Hub access.
+  - name: Optimization
+    description: Optimization happens at program renewal; consolidate developer accounts under the appropriate
+      program tier and avoid duplicate registrations.
+  - name: Accountability
+    description: Engineering leadership owns Qualcomm Developer Network entitlements; route program
+      changes through the Qualcomm account team.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
