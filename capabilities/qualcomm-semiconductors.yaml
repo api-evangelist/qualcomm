@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Qualcomm Developer API — Semiconductors
+  description: 'Qualcomm Developer API — Semiconductors. 1 operations. Lead operation: Get API status. Self-contained Naftiko
+    capability covering one Qualcomm business surface.'
+  tags:
+  - Qualcomm
+  - Semiconductors
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    QUALCOMM_API_KEY: QUALCOMM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: qualcomm-semiconductors
+    baseUri: https://developer.qualcomm.com/api
+    description: Qualcomm Developer API — Semiconductors business capability. Self-contained, no shared references.
+    resources:
+    - name: status
+      path: /status
+      operations:
+      - name: getstatus
+        method: GET
+        description: Get API status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.QUALCOMM_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: qualcomm-semiconductors-rest
+    port: 8080
+    description: REST adapter for Qualcomm Developer API — Semiconductors. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/status
+      name: status
+      description: REST surface for status.
+      operations:
+      - method: GET
+        name: getstatus
+        description: Get API status
+        call: qualcomm-semiconductors.getstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: qualcomm-semiconductors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Qualcomm Developer API — Semiconductors. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-api-status
+      description: Get API status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: qualcomm-semiconductors.getstatus
+      outputParameters:
+      - type: object
+        mapping: $.
