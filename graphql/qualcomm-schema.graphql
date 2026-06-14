@@ -1,0 +1,889 @@
+# Qualcomm GraphQL Schema
+# Conceptual schema based on Qualcomm developer documentation
+# Source: https://developer.qualcomm.com/
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum ChipTier {
+  PREMIUM
+  HIGH
+  MID
+  ENTRY
+}
+
+enum DeviceCategory {
+  MOBILE
+  AUTO
+  IOT
+  XR
+  COMPUTE
+  CONNECTED_HOME
+  NETWORKING
+}
+
+enum Platform {
+  ANDROID
+  LINUX
+  WINDOWS
+  QNX
+  TIZEN
+  RTOS
+}
+
+enum ConnectivityStandard {
+  WIFI_6
+  WIFI_6E
+  WIFI_7
+  BLUETOOTH_5_0
+  BLUETOOTH_5_3
+  UWB
+  NFC
+}
+
+enum FiveGBand {
+  SUB6
+  MMWAVE
+  SUB6_AND_MMWAVE
+}
+
+enum InferenceMode {
+  CPU
+  GPU
+  NPU
+  DSP
+  HYBRID
+}
+
+enum ModelFramework {
+  TENSORFLOW
+  PYTORCH
+  ONNX
+  KERAS
+  TFLITE
+  CAFFE2
+}
+
+enum QuantizationType {
+  INT8
+  INT4
+  FLOAT16
+  FLOAT32
+  MIXED
+}
+
+enum SDKType {
+  AI_ML
+  CAMERA
+  AUDIO
+  CONNECTIVITY
+  SECURITY
+  XR
+  AUTOMOTIVE
+  IOT
+  PLATFORM
+}
+
+enum CoreType {
+  PERFORMANCE
+  EFFICIENCY
+  BALANCED
+}
+
+enum SecurityLevel {
+  L1
+  L2
+  L3
+}
+
+# ─────────────────────────────────────────────
+# Chipset and Processor Types
+# ─────────────────────────────────────────────
+
+type Chipset {
+  id: ID!
+  name: String!
+  partNumber: String
+  family: String
+  generation: SnapdragonGeneration
+  tier: ChipTier
+  processNode: String
+  transistorCount: String
+  cpu: CPUSpec
+  gpu: GPUSpec
+  ai: AISpec
+  dsp: DSPSpec
+  npu: NPUSpec
+  modem: ModemSpec
+  wireless: WirelessSpec
+  camera: CameraSpec
+  video: VideoSpec
+  audio: AudioSpec
+  security: [SecurityFeature]
+  performance: PerformanceData
+  power: PowerProfile
+  thermal: ThermalData
+  deviceSupport: [DeviceSupport]
+  sdks: [SDK]
+  announcedDate: String
+  releaseDate: String
+}
+
+type SnapdragonChip {
+  id: ID!
+  modelNumber: String!
+  marketingName: String
+  series: String
+  generation: SnapdragonGeneration
+  tier: ChipTier
+  processNode: String
+  chipset: Chipset
+  devices: [SnapdragonDevice]
+  benchmarks: [BenchmarkScore]
+  referenceDesigns: [ReferenceDesign]
+}
+
+type SnapdragonGeneration {
+  id: ID!
+  name: String!
+  year: Int
+  processNode: String
+  chips: [SnapdragonChip]
+  keyFeatures: [String]
+  aiCapabilities: AISpec
+  connectivityFeatures: WirelessSpec
+}
+
+type CoreArchitecture {
+  id: ID!
+  name: String!
+  vendor: String
+  type: CoreType
+  microarchitecture: String
+  maxFrequencyGHz: Float
+  cacheL1KB: Int
+  cacheL2KB: Int
+  cacheL3MB: Float
+  simdSupport: [String]
+  generation: String
+}
+
+# ─────────────────────────────────────────────
+# CPU, GPU, AI Subsystem Specs
+# ─────────────────────────────────────────────
+
+type CPUSpec {
+  id: ID!
+  coreCount: Int
+  bigCores: Int
+  littleCores: Int
+  primeCore: Boolean
+  architecture: [CoreArchitecture]
+  maxFrequencyGHz: Float
+  totalL3CacheMB: Float
+  kryo: String
+  aarch64: Boolean
+  performanceScore: Int
+}
+
+type GPUSpec {
+  id: ID!
+  name: String
+  generation: String
+  coreCount: Int
+  maxFrequencyMHz: Int
+  apiSupport: [String]
+  rayTracingSupport: Boolean
+  meshShadingSupport: Boolean
+  vulkanVersion: String
+  openCLVersion: String
+  renderingPipeline: String
+  memorybandwidthGBps: Float
+  tflops: Float
+}
+
+type AISpec {
+  id: ID!
+  topLevelTOPS: Float
+  cpuTOPS: Float
+  gpuTOPS: Float
+  npuTOPS: Float
+  dspTOPS: Float
+  supportedFrameworks: [ModelFramework]
+  qnnSupport: Boolean
+  onDeviceInference: Boolean
+  generativeAISupport: Boolean
+  contextWindowTokens: Int
+  recommendedModels: [String]
+}
+
+type DSPSpec {
+  id: ID!
+  name: String
+  generation: String
+  hexagonVersion: String
+  vectorExtensions: Boolean
+  tensorExtensions: Boolean
+  frequencyMHz: Int
+  tops: Float
+  memoryBandwidthGBps: Float
+}
+
+type NPUSpec {
+  id: ID!
+  name: String
+  generation: String
+  tops: Float
+  precisionSupport: [QuantizationType]
+  onChipSRAMMB: Int
+  powerEfficiencyTOPSPerWatt: Float
+}
+
+# ─────────────────────────────────────────────
+# Connectivity Specs
+# ─────────────────────────────────────────────
+
+type ModemSpec {
+  id: ID!
+  name: String
+  generation: String
+  fiveG: FiveGSpec
+  lte: LTESpec
+  integratedModem: Boolean
+  downloadSpeedGbps: Float
+  uploadSpeedGbps: Float
+  carrierAggregation: String
+  mimoConfig: String
+  spectrumSharingSupport: Boolean
+}
+
+type WirelessSpec {
+  id: ID!
+  wifi: WiFiSpec
+  bluetooth: BluetoothSpec
+  uwb: Boolean
+  nfc: Boolean
+  gnss: [String]
+  standards: [ConnectivityStandard]
+}
+
+type BluetoothSpec {
+  id: ID!
+  version: String!
+  ble: Boolean
+  audioCodecs: [String]
+  range: String
+  throughputMbps: Float
+  aptX: Boolean
+  aptXHD: Boolean
+  aptXAdaptive: Boolean
+  leCOC: Boolean
+}
+
+type WiFiSpec {
+  id: ID!
+  standard: String!
+  bands: [String]
+  maxSpeedMbps: Int
+  mimo: String
+  mumimo: Boolean
+  ofdma: Boolean
+  wpa3: Boolean
+  wifiDirect: Boolean
+  hotspot: Boolean
+  channelWidthMHz: Int
+}
+
+type FiveGSpec {
+  id: ID!
+  band: FiveGBand!
+  downlinkSpeedGbps: Float
+  uplinkSpeedGbps: Float
+  standaloneMode: Boolean
+  nonStandaloneMode: Boolean
+  dynamicSpectrumSharing: Boolean
+  ultraLowLatencyMs: Float
+  mmWaveSupport: Boolean
+  sub6GHzBands: [String]
+  mmWaveBands: [String]
+}
+
+type LTESpec {
+  id: ID!
+  category: String
+  downlinkMbps: Float
+  uplinkMbps: Float
+  carrierAggregationBands: Int
+  voLTE: Boolean
+  vIoT: Boolean
+}
+
+# ─────────────────────────────────────────────
+# Media and Sensors
+# ─────────────────────────────────────────────
+
+type CameraSpec {
+  id: ID!
+  isp: String
+  maxMegapixels: Int
+  maxVideoResolution: String
+  maxVideoFPS: Int
+  slowMotionFPS: Int
+  hdrSupport: Boolean
+  rawCaptureSupport: Boolean
+  zeroShutterLag: Boolean
+  simultaneousCameras: Int
+  depthSensing: Boolean
+  spectraVersion: String
+  aiEnhancement: Boolean
+}
+
+type VideoSpec {
+  id: ID!
+  maxEncodeResolution: String
+  maxDecodeResolution: String
+  codecsSupported: [String]
+  av1HWDecode: Boolean
+  av1HWEncode: Boolean
+  hdrFormats: [String]
+  maxFPS: Int
+  dolbyVision: Boolean
+  hdr10Plus: Boolean
+}
+
+type AudioSpec {
+  id: ID!
+  dac: String
+  sampleRateHz: Int
+  bitDepth: Int
+  spatialAudio: Boolean
+  noiseCancel: Boolean
+  voiceAssistant: Boolean
+  aptX: Boolean
+  aptXAdaptive: Boolean
+  losslessAudio: Boolean
+  aqsyncSupport: Boolean
+}
+
+# ─────────────────────────────────────────────
+# Performance and Power
+# ─────────────────────────────────────────────
+
+type PerformanceData {
+  id: ID!
+  chipsetId: ID!
+  benchmarks: [BenchmarkScore]
+  multiCoreCPUScore: Int
+  singleCoreCPUScore: Int
+  gpuScore: Int
+  aiScore: Int
+  memoryBandwidthGBps: Float
+  storageSequentialReadMBps: Int
+  storageSequentialWriteMBps: Int
+}
+
+type BenchmarkScore {
+  id: ID!
+  suite: String!
+  version: String
+  score: Float!
+  subscore: String
+  runDate: String
+  device: String
+  chipsetId: ID!
+  notes: String
+}
+
+type PowerProfile {
+  id: ID!
+  chipsetId: ID!
+  tdp: TDP
+  batterySavings: BatterySavings
+  typicalPowerW: Float
+  peakPowerW: Float
+  idlePowerMW: Float
+  powerIslands: [String]
+  voltageScaling: Boolean
+  frequencyScaling: Boolean
+  dynamicPowerManagement: Boolean
+}
+
+type ThermalData {
+  id: ID!
+  chipsetId: ID!
+  maxJunctionTempC: Int
+  throttleThresholdC: Int
+  thermalInterface: String
+  vapourChamberSupport: Boolean
+  fanRequired: Boolean
+  thermalDesignProfile: String
+}
+
+type TDP {
+  id: ID!
+  tdpW: Float!
+  scenarioTDP: Float
+  boostTDP: Float
+  coolingType: String
+}
+
+type BatterySavings {
+  id: ID!
+  efficiencyRatingPercent: Float
+  standbyTimeDays: Float
+  videoPlaybackHours: Float
+  aiInferenceEfficiencyTOPSPerWatt: Float
+  adaptiveBatterySupport: Boolean
+}
+
+# ─────────────────────────────────────────────
+# Security
+# ─────────────────────────────────────────────
+
+type SecurityFeature {
+  id: ID!
+  name: String!
+  description: String
+  chipsets: [Chipset]
+  trustZone: TrustZone
+  secureElement: SecureElement
+  certifications: [String]
+  level: SecurityLevel
+}
+
+type TrustZone {
+  id: ID!
+  version: String
+  secureBootSupport: Boolean
+  attestationSupport: Boolean
+  keyStorageSupport: Boolean
+  biometricProtection: Boolean
+  secureVideoPath: Boolean
+}
+
+type SecureElement {
+  id: ID!
+  embedded: Boolean
+  eSimSupport: Boolean
+  commonCriteriaLevel: String
+  fidoSupport: Boolean
+  paymentCertified: Boolean
+  tamperResistant: Boolean
+}
+
+# ─────────────────────────────────────────────
+# AI / ML Platform
+# ─────────────────────────────────────────────
+
+type AI {
+  id: ID!
+  chipsetId: ID!
+  qnn: QNN
+  qaiHub: QAIHub
+  totalTOPS: Float
+  onDeviceModels: [MLModel]
+  supportedTasks: [String]
+  generativeAIModels: [String]
+}
+
+type QNN {
+  id: ID!
+  version: String!
+  supportedBackends: [InferenceMode]
+  supportedFrameworks: [ModelFramework]
+  quantizationSupport: [QuantizationType]
+  modelConversionTools: [String]
+  profilingTools: [String]
+  documentationURL: String
+}
+
+type QAIHub {
+  id: ID!
+  version: String
+  hostedModels: [MLModel]
+  supportedDevices: [SnapdragonDevice]
+  optimizationPipeline: String
+  deploymentTargets: [String]
+  benchmarkingAvailable: Boolean
+  apiEndpoint: String
+}
+
+type MLModel {
+  id: ID!
+  name: String!
+  version: String
+  framework: ModelFramework
+  task: String
+  architecture: String
+  parameters: [ModelParam]
+  quantized: Boolean
+  quantizedVersion: QuantizedModel
+  inputShape: String
+  outputShape: String
+  licenseName: String
+  sourceURL: String
+  qaiHubId: String
+}
+
+type QuantizedModel {
+  id: ID!
+  originalModelId: ID!
+  quantizationType: QuantizationType
+  sizeReductionPercent: Float
+  accuracyDropPercent: Float
+  targetDevice: String
+  inferenceLatency: Latency
+  chipsetOptimized: String
+}
+
+type ModelParam {
+  id: ID!
+  name: String!
+  value: String
+  dtype: String
+  shape: String
+  trainable: Boolean
+  description: String
+}
+
+type Inference {
+  id: ID!
+  modelId: ID!
+  deviceId: ID!
+  mode: InferenceMode
+  latency: Latency
+  throughput: Float
+  powerConsumptionMW: Float
+  accuracyPercent: Float
+  batchSize: BatchSize
+  runDate: String
+}
+
+type BatchSize {
+  id: ID!
+  size: Int!
+  latencyMs: Float
+  throughputItemsPerSec: Float
+  memoryMB: Float
+}
+
+type Latency {
+  id: ID!
+  p50Ms: Float
+  p90Ms: Float
+  p99Ms: Float
+  minMs: Float
+  maxMs: Float
+  avgMs: Float
+}
+
+# ─────────────────────────────────────────────
+# Developer Tools
+# ─────────────────────────────────────────────
+
+type QEP {
+  id: ID!
+  name: String!
+  description: String
+  partnerTier: String
+  benefits: [String]
+  eligibleDevices: [SnapdragonDevice]
+  contactURL: String
+  applicationURL: String
+}
+
+type SDK {
+  id: ID!
+  name: String!
+  version: String!
+  type: SDKType
+  platform: [Platform]
+  description: String
+  downloadURL: String
+  documentationURL: String
+  releaseDate: String
+  changelogURL: String
+  licenseType: String
+  supportedChipsets: [Chipset]
+  sampleCode: [String]
+}
+
+type APIEndpoint {
+  id: ID!
+  path: String!
+  method: String!
+  description: String
+  authRequired: Boolean
+  rateLimitPerMinute: Int
+  responseFormat: String
+  sdkCoverage: [SDK]
+  deprecated: Boolean
+  version: String
+}
+
+type SoftwareStack {
+  id: ID!
+  name: String!
+  layers: [String]
+  platform: Platform
+  sdks: [SDK]
+  chipsets: [Chipset]
+  documentationURL: String
+}
+
+# ─────────────────────────────────────────────
+# Devices and Designs
+# ─────────────────────────────────────────────
+
+type DeviceSupport {
+  id: ID!
+  chipsetId: ID!
+  deviceCategory: DeviceCategory
+  certificationLevel: String
+  testedFeatures: [String]
+  notes: String
+}
+
+type ReferenceDesign {
+  id: ID!
+  name: String!
+  chipset: Chipset
+  category: DeviceCategory
+  formFactor: String
+  description: String
+  keyFeatures: [String]
+  targetMarkets: [String]
+  availableAsEVKit: Boolean
+  evKit: EVKit
+  documentationURL: String
+}
+
+type EVKit {
+  id: ID!
+  name: String!
+  partNumber: String
+  chipset: Chipset
+  description: String
+  includedComponents: [String]
+  supportedOS: [Platform]
+  purchaseURL: String
+  priceUSD: Float
+  availabilityDate: String
+  documentationURL: String
+}
+
+type SnapdragonDevice {
+  id: ID!
+  name: String!
+  manufacturer: String
+  chipset: SnapdragonChip
+  category: DeviceCategory
+  releaseYear: Int
+  announcedDate: String
+  certificationStatus: String
+}
+
+type MobileDevice {
+  id: ID!
+  snapdragonDevice: SnapdragonDevice
+  formFactor: String
+  os: Platform
+  ramGB: Int
+  storageGB: Int
+  displayResolution: String
+  displayRefreshRateHz: Int
+  batteryMAh: Int
+  has5G: Boolean
+  cameraSetup: CameraSpec
+}
+
+type AutoDevice {
+  id: ID!
+  snapdragonDevice: SnapdragonDevice
+  safetyRating: String
+  autonomyLevel: String
+  v2xSupport: Boolean
+  infotainmentSupport: Boolean
+  adaLevel: String
+  operatingTempRange: String
+  certifications: [String]
+}
+
+type IoTDevice {
+  id: ID!
+  snapdragonDevice: SnapdragonDevice
+  powerClass: String
+  operatingVoltage: String
+  peripheralInterfaces: [String]
+  certifications: [String]
+  operatingTempRange: String
+  formFactor: String
+  lowPowerMode: Boolean
+}
+
+type XRDevice {
+  id: ID!
+  snapdragonDevice: SnapdragonDevice
+  xrType: String
+  displaysCount: Int
+  displayResolutionPerEye: String
+  refreshRateHz: Int
+  fovDegrees: Int
+  passthrough: Boolean
+  eyeTracking: Boolean
+  handTracking: Boolean
+  spatialAudio: Boolean
+  standaloneDevice: Boolean
+}
+
+type ComputeDevice {
+  id: ID!
+  snapdragonDevice: SnapdragonDevice
+  formFactor: String
+  os: Platform
+  ramGB: Int
+  storageGB: Int
+  npu: NPUSpec
+  thunderbolt: Boolean
+  usbCPorts: Int
+  displayOutputs: Int
+  windowsOnArm: Boolean
+  copilotPlusPC: Boolean
+}
+
+type ConnectedHome {
+  id: ID!
+  snapdragonDevice: SnapdragonDevice
+  deviceClass: String
+  protocols: [String]
+  mattterSupport: Boolean
+  threadSupport: Boolean
+  zigbeeSupport: Boolean
+  zWaveSupport: Boolean
+  maxConnectedDevices: Int
+  wifiMeshCapable: Boolean
+}
+
+# ─────────────────────────────────────────────
+# Identity and Access
+# ─────────────────────────────────────────────
+
+type Developer {
+  id: ID!
+  email: String!
+  displayName: String
+  organizationName: String
+  country: String
+  createdAt: String
+  apiKeys: [APIKey]
+  qepMember: Boolean
+  qepTier: String
+}
+
+type APIKey {
+  id: ID!
+  label: String
+  keyPrefix: String
+  developerId: ID!
+  createdAt: String
+  expiresAt: String
+  lastUsedAt: String
+  scopes: [String]
+  revoked: Boolean
+}
+
+type Token {
+  id: ID!
+  accessToken: String!
+  tokenType: String
+  expiresIn: Int
+  scope: String
+  issuedAt: String
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+input DeveloperInput {
+  email: String!
+  displayName: String!
+  organizationName: String
+  country: String!
+  acceptedTerms: Boolean!
+}
+
+input MLModelInput {
+  name: String!
+  framework: ModelFramework!
+  task: String!
+  modelFileURL: String!
+  targetDevice: String!
+  quantizationType: QuantizationType
+}
+
+input ChipsetFilter {
+  tier: ChipTier
+  generation: String
+  processNode: String
+  minTOPS: Float
+  has5G: Boolean
+  hasMmWave: Boolean
+}
+
+input ModelFilter {
+  framework: ModelFramework
+  task: String
+  quantized: Boolean
+  targetDevice: String
+}
+
+# ─────────────────────────────────────────────
+# Root Types
+# ─────────────────────────────────────────────
+
+type Query {
+  chipset(id: ID!): Chipset
+  chipsets(filter: ChipsetFilter, limit: Int, offset: Int): [Chipset]
+  snapdragonChip(id: ID!): SnapdragonChip
+  snapdragonChips(generation: String, tier: ChipTier, limit: Int): [SnapdragonChip]
+  snapdragonGeneration(id: ID!): SnapdragonGeneration
+  snapdragonGenerations: [SnapdragonGeneration]
+  coreArchitecture(id: ID!): CoreArchitecture
+  mlModel(id: ID!): MLModel
+  mlModels(filter: ModelFilter, limit: Int, offset: Int): [MLModel]
+  qaiHub: QAIHub
+  qnn(chipsetId: ID!): QNN
+  sdk(id: ID!): SDK
+  sdks(platform: Platform, type: SDKType): [SDK]
+  apiEndpoints(version: String): [APIEndpoint]
+  device(id: ID!): SnapdragonDevice
+  devices(category: DeviceCategory, limit: Int): [SnapdragonDevice]
+  referenceDesign(id: ID!): ReferenceDesign
+  referenceDesigns(category: DeviceCategory): [ReferenceDesign]
+  evKit(id: ID!): EVKit
+  evKits: [EVKit]
+  benchmarks(chipsetId: ID!, suite: String): [BenchmarkScore]
+  inferences(modelId: ID!, deviceId: ID): [Inference]
+  developer(id: ID!): Developer
+  apiKeys(developerId: ID!): [APIKey]
+  qep: [QEP]
+  securityFeatures(chipsetId: ID): [SecurityFeature]
+}
+
+type Mutation {
+  registerDeveloper(input: DeveloperInput!): Developer
+  createAPIKey(developerId: ID!, label: String!, scopes: [String]): APIKey
+  revokeAPIKey(keyId: ID!): Boolean
+  refreshToken(refreshToken: String!): Token
+  submitModelForOptimization(input: MLModelInput!): MLModel
+  deployModel(modelId: ID!, deviceTarget: String!): QuantizedModel
+  runInference(modelId: ID!, deviceId: ID!, batchSize: Int): Inference
+}
+
+type Subscription {
+  modelOptimizationStatus(modelId: ID!): MLModel
+  inferenceCompleted(jobId: ID!): Inference
+  chipsetAnnouncement: SnapdragonChip
+}
