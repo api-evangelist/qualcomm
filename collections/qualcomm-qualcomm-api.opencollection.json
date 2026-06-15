@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Qualcomm Developer API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Semiconductors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.qualcomm.com/api/status"
+          },
+          "docs": "Returns the current status of the API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
