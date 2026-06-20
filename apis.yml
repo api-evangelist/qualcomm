@@ -17,7 +17,7 @@ apis:
   - IoT
   - Mobile
   - Semiconductors
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://developer.qualcomm.com/api
   humanURL: https://developer.qualcomm.com/
   properties:
