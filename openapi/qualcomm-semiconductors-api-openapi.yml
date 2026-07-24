@@ -1,32 +1,27 @@
 openapi: 3.1.0
 info:
-  title: Qualcomm Developer API
-  description: >-
-    Qualcomm provides developer APIs and SDKs for mobile computing, 5G connectivity, AI inference, and IoT. The platform supports developers building applications for Snapdragon-powered devices.
+  title: Qualcomm Developer Semiconductors API
+  description: Qualcomm provides developer APIs and SDKs for mobile computing, 5G connectivity, AI inference, and IoT. The platform supports developers building applications for Snapdragon-powered devices.
   version: '1.0'
   contact:
     name: Qualcomm Developer Support
     url: https://developer.qualcomm.com/
-externalDocs:
-  description: Documentation
-  url: https://developer.qualcomm.com/
 servers:
-  - url: https://developer.qualcomm.com/api
-    description: Production
-tags:
-  - name: Semiconductors
-    description: Semiconductors operations
+- url: https://developer.qualcomm.com/api
+  description: Production
 security:
-  - bearerAuth: []
+- bearerAuth: []
+tags:
+- name: Semiconductors
+  description: Semiconductors operations
 paths:
   /status:
     get:
       operationId: getStatus
       summary: Get API status
-      description: >-
-        Returns the current status of the API.
+      description: Returns the current status of the API.
       tags:
-        - Semiconductors
+      - Semiconductors
       responses:
         '200':
           description: Success
@@ -48,3 +43,6 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+externalDocs:
+  description: Documentation
+  url: https://developer.qualcomm.com/
