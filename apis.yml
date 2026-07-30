@@ -1,4 +1,18 @@
 aid: qualcomm
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/qualcomm.png
 tags:
 - Fortune 500
 url: https://raw.githubusercontent.com/api-evangelist/qualcomm/refs/heads/main/apis.yml
@@ -19,27 +33,20 @@ common:
 - url: https://www.qualcomm.com/news
   type: Blog
 apis:
-- aid: qualcomm:qualcomm-api
-  name: Qualcomm Developer API
-  tags:
-  - 5G
-  - AI
-  - IoT
-  - Mobile
-  - Semiconductors
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://developer.qualcomm.com/api
+- aid: qualcomm:qualcomm-semiconductors-api
+  name: qualcomm Semiconductors API
+  description: Semiconductors operations
   humanURL: https://developer.qualcomm.com/
+  baseURL: https://developer.qualcomm.com/api
+  tags:
+  - Semiconductors
   properties:
-  - url: https://developer.qualcomm.com/
-    type: Documentation
-  - url: openapi/qualcomm-qualcomm-api-openapi.yml
-    type: OpenAPI
-  - url: graphql/qualcomm-graphql.md
-    type: GraphQL
-  description: Qualcomm provides developer APIs and SDKs for mobile computing, 5G
-    connectivity, AI inference, and IoT. The platform supports developers building
-    applications for Snapdragon-powered devices.
+  - type: OpenAPI
+    url: openapi/qualcomm-semiconductors-api-openapi.yml
+  - type: Documentation
+    url: https://developer.qualcomm.com/
+  - type: GraphQL
+    url: graphql/qualcomm-graphql.md
 description: Qualcomm is a multinational semiconductor and telecommunications equipment
   company that creates intellectual property, semiconductors, software, and services
   related to wireless technology.
