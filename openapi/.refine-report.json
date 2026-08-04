@@ -1,0 +1,14 @@
+{
+  "provider": "qualcomm",
+  "sources": [
+    "qualcomm-semiconductors-api-openapi.yml"
+  ],
+  "outputs": [
+    "qualcomm-semiconductors-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
