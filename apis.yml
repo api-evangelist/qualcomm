@@ -29,8 +29,10 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/qualcomm.p
 tags:
 - Fortune 500
 url: https://raw.githubusercontent.com/api-evangelist/qualcomm/refs/heads/main/apis.yml
-modified: '2026-05-19'
+modified: '2026-09-16'
 common:
+- type: Website
+  url: https://qualcomm.com
 - type: AgenticAccess
   url: agentic-access/qualcomm-agentic-access.yml
 - type: VulnerabilityDisclosure
@@ -60,6 +62,5 @@ apis:
     url: https://developer.qualcomm.com/
   - type: GraphQL
     url: graphql/qualcomm-graphql.md
-description: Qualcomm is a multinational semiconductor and telecommunications equipment
-  company that creates intellectual property, semiconductors, software, and services
-  related to wireless technology.
+description: Qualcomm is a multinational semiconductor and telecommunications equipment company that creates
+  intellectual property, semiconductors, software, and services related to wireless technology.
