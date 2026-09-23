@@ -1,7 +1,9 @@
 ---
 title: Investor Events
 url: https://investor.qualcomm.com/news-events/investor-events/default.aspx
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Qualcomm" press release artificial intelligence'
 position: 2
 source: serpapi-google

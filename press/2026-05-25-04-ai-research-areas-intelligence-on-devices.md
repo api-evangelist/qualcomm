@@ -1,7 +1,9 @@
 ---
 title: AI Research Areas | Intelligence on Devices
 url: https://www.qualcomm.com/research/artificial-intelligence
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Qualcomm" press release artificial intelligence'
 position: 4
 source: serpapi-google

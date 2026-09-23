@@ -1,7 +1,9 @@
 ---
 title: Qualcomm - News & Events - Press Releases
 url: https://investor.qualcomm.com/news-events/press-releases/default.aspx
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Qualcomm" press release artificial intelligence'
 position: 1
 source: serpapi-google
