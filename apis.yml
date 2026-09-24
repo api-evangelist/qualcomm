@@ -60,7 +60,5 @@ apis:
     url: openapi/qualcomm-semiconductors-api-openapi.yml
   - type: Documentation
     url: https://developer.qualcomm.com/
-  - type: GraphQL
-    url: graphql/qualcomm-graphql.md
 description: Qualcomm is a multinational semiconductor and telecommunications equipment company that creates
   intellectual property, semiconductors, software, and services related to wireless technology.
